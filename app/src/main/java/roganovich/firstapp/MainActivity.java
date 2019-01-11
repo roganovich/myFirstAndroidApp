@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,8 +18,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        TextView myTest = (TextView) findViewById(R.id.textView2);
+        myTest.setText("Hello i am new text");
+
+        Button myBtn = (Button) findViewById(R.id.button5);
+        myBtn.setText("Push my");
+        myBtn.setEnabled(false);
+
+        CheckBox myChb = (CheckBox)findViewById(R.id.checkBox2);
+        myChb.setText("Select chckbob");
+        myChb.setChecked(true);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
