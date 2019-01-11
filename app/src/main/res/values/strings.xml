@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">First App</string>
     <string name="action_settings">Settings</string>
+
     <string name="web_firstname">Roganovicch</string>
     <string name="web_secondname">Roman</string>
     <string name="web_email">roman.roganovich@mail.ru</string>
+
+    <string name="text1">Нажата кнопка №1</string>
+    <string name="text2">Нажата кнопка №2</string>
+    <string name="text3">Нажата кнопка №3</string>
+
+
 </resources>

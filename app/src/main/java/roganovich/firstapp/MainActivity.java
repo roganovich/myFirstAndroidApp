@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     TextView myText;
     Button myBtn1;
@@ -25,20 +25,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.main);
 
 
-
-        myText = (TextView)findViewById(R.id.textView3);
+        myText = (TextView) findViewById(R.id.textView3);
         myBtn1 = (Button) findViewById(R.id.btn1);
         myBtn2 = (Button) findViewById(R.id.btn2);
         myBtn3 = (Button) findViewById(R.id.btn3);
 
-        myBtn1.setOnClickListener(new View.OnClickListener() {
+
+        View.OnClickListener OnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myText.setText(myBtn1.getText());
+
+                CharSequence myCounter = myText.getText();
+                System.out.println(myCounter);
+                Integer MyTotal = Integer.valueOf(myCounter.toString());
+                Integer mySumm = MyTotal+1;
+                switch (v.getId()) {
+                    case R.id.btn1:
+                        myText.setText(mySumm.toString());
+                        break;
+                    case R.id.btn2:
+                        myText.setText(mySumm.toString());
+                        break;
+                    case R.id.btn3:
+                        myText.setText(mySumm.toString());
+                        break;
+                }
+            }
+        };
+
+
+        myBtn1.setOnClickListener(OnClickListener);
+        myBtn2.setOnClickListener(OnClickListener);
+        myBtn3.setOnClickListener(OnClickListener);
+
+        myText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myText.setText(new String("0"));
             }
         });
 
-        myBtn2.setOnClickListener(this);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,12 +101,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    public void setText3(View v) {
-        myText.setText(myBtn3.getText());
-    }
-
-    @Override
-    public void onClick(View v) {
-        myText.setText(myBtn2.getText());
-    }
 }
