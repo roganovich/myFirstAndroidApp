@@ -12,23 +12,33 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    TextView myText;
+    Button myBtn1;
+    Button myBtn2;
+    Button myBtn3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        TextView myTest = (TextView) findViewById(R.id.textView2);
-        myTest.setText("Hello i am new text");
 
-        Button myBtn = (Button) findViewById(R.id.button5);
-        myBtn.setText("Push my");
-        myBtn.setEnabled(false);
 
-        CheckBox myChb = (CheckBox)findViewById(R.id.checkBox2);
-        myChb.setText("Select chckbob");
-        myChb.setChecked(true);
 
+        myText = (TextView)findViewById(R.id.textView3);
+        myBtn1 = (Button) findViewById(R.id.btn1);
+        myBtn2 = (Button) findViewById(R.id.btn2);
+        myBtn3 = (Button) findViewById(R.id.btn3);
+
+        myBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myText.setText(myBtn1.getText());
+            }
+        });
+
+        myBtn2.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,5 +70,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setText3(View v) {
+        myText.setText(myBtn3.getText());
+    }
+
+    @Override
+    public void onClick(View v) {
+        myText.setText(myBtn2.getText());
     }
 }
