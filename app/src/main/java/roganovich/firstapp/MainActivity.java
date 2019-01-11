@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,12 +42,15 @@ public class MainActivity extends AppCompatActivity {
                 Integer mySumm = MyTotal+1;
                 switch (v.getId()) {
                     case R.id.btn1:
+                        Toast.makeText(getApplicationContext(), "Нажата кнопка 1", Toast.LENGTH_SHORT).show();
                         myText.setText(mySumm.toString());
                         break;
                     case R.id.btn2:
+                        Toast.makeText(getApplicationContext(), "Нажата кнопка 2", Toast.LENGTH_SHORT).show();
                         myText.setText(mySumm.toString());
                         break;
                     case R.id.btn3:
+                        Toast.makeText(getApplicationContext(), "Нажата кнопка 3", Toast.LENGTH_SHORT).show();
                         myText.setText(mySumm.toString());
                         break;
                 }
