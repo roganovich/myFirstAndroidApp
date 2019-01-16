@@ -1,10 +1,13 @@
 package roganovich.firstapp;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,64 +16,31 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
+
+    final int MENU_COLOR_RED = 1;
+    final int MENU_COLOR_BLUE = 2;
+    final int MENU_COLOR_GREEN = 3;
+
+    final int MENU_FONT_16 = 4;
+    final int MENU_FONT_22 = 5;
+    final int MENU_FONT_28 = 6;
 
     TextView myText;
-    Button myBtn1;
-    Button myBtn2;
-    Button myBtn3;
+    Button myBtnFont;
+    Button myBtnColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        myText = (TextView) findViewById(R.id.txtExample);
+        myBtnFont = (Button) findViewById(R.id.btnFont);
+        myBtnColor = (Button) findViewById(R.id.btnColor);
 
-        myText = (TextView) findViewById(R.id.textView3);
-        myBtn1 = (Button) findViewById(R.id.btn1);
-        myBtn2 = (Button) findViewById(R.id.btn2);
-        myBtn3 = (Button) findViewById(R.id.btn3);
-
-
-        View.OnClickListener OnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                CharSequence myCounter = myText.getText();
-                System.out.println(myCounter);
-                Integer MyTotal = Integer.valueOf(myCounter.toString());
-                Integer mySumm = MyTotal+1;
-                switch (v.getId()) {
-                    case R.id.btn1:
-                        Toast.makeText(getApplicationContext(), "Нажата кнопка 1", Toast.LENGTH_SHORT).show();
-                        myText.setText(mySumm.toString());
-                        break;
-                    case R.id.btn2:
-                        Toast.makeText(getApplicationContext(), "Нажата кнопка 2", Toast.LENGTH_SHORT).show();
-                        myText.setText(mySumm.toString());
-                        break;
-                    case R.id.btn3:
-                        Toast.makeText(getApplicationContext(), "Нажата кнопка 3", Toast.LENGTH_SHORT).show();
-                        myText.setText(mySumm.toString());
-                        break;
-                }
-            }
-        };
-
-
-        myBtn1.setOnClickListener(OnClickListener);
-        myBtn2.setOnClickListener(OnClickListener);
-        myBtn3.setOnClickListener(OnClickListener);
-
-        myText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myText.setText(new String("0"));
-            }
-        });
-
-
-
+        registerForContextMenu(myBtnFont);
+        registerForContextMenu(myBtnColor);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,25 +54,45 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        switch (v.getId()){
+            case R.id.btnFont:
+                menu.add(0,MENU_FONT_16,0,"16");
+                menu.add(0,MENU_FONT_22,0,"22");
+                menu.add(0,MENU_FONT_28,0,"28");
+                break;
+            case R.id.btnColor:
+                menu.add(0,MENU_COLOR_BLUE,0,"BLUE");
+                menu.add(0,MENU_COLOR_RED,0,"RED");
+                menu.add(0,MENU_COLOR_GREEN,0,"GREEN");
+                break;
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean onContextItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case MENU_FONT_16:
+                myText.setTextSize(16);
+                break;
+            case MENU_FONT_22:
+                myText.setTextSize(22);
+                break;
+            case MENU_FONT_28:
+                myText.setTextSize(28);
+                break;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case MENU_COLOR_BLUE:
+                myText.setTextColor(Color.BLUE);
+                break;
+            case MENU_COLOR_RED:
+                myText.setTextColor(Color.RED);
+                break;
+            case MENU_COLOR_GREEN:
+                myText.setTextColor(Color.GREEN);
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return super.onContextItemSelected(item);
     }
 
 }
