@@ -8,39 +8,46 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
-    final int MENU_COLOR_RED = 1;
-    final int MENU_COLOR_BLUE = 2;
-    final int MENU_COLOR_GREEN = 3;
+    TextView txtName;
+    RadioButton rbLeft;
+    RadioButton rbCenter;
+    RadioButton rbRight;
+    RadioGroup  rdbGroup;
+    Button btnCreate;
+    Button btnClear;
+    LinearLayout lResult;
 
-    final int MENU_FONT_16 = 4;
-    final int MENU_FONT_22 = 5;
-    final int MENU_FONT_28 = 6;
-
-    TextView myText;
-    Button myBtnFont;
-    Button myBtnColor;
+    int wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        myText = (TextView) findViewById(R.id.txtExample);
-        myBtnFont = (Button) findViewById(R.id.btnFont);
-        myBtnColor = (Button) findViewById(R.id.btnColor);
+        txtName = (TextView) findViewById(R.id.txtName);
+        rdbGroup = (RadioGroup) findViewById(R.id.rdbGroup);
 
-        registerForContextMenu(myBtnFont);
-        registerForContextMenu(myBtnColor);
+        btnCreate = (Button) findViewById(R.id.btnCreate);
+        btnCreate.setOnClickListener(this);
+
+        btnClear = (Button) findViewById(R.id.btnClear);
+        btnClear.setOnClickListener(this);
+
+        lResult = (LinearLayout) findViewById(R.id.loResult);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,47 +59,40 @@ public class MainActivity extends Activity {
         });
     }
 
-
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+    public void onClick(View v){
         switch (v.getId()){
-            case R.id.btnFont:
-                menu.add(0,MENU_FONT_16,0,"16");
-                menu.add(0,MENU_FONT_22,0,"22");
-                menu.add(0,MENU_FONT_28,0,"28");
+            case R.id.btnCreate:
+                LinearLayout.LayoutParams lParms = new LinearLayout.LayoutParams(wrapContent,wrapContent);
+
+                int btnGravity = Gravity.LEFT;
+                switch (rdbGroup.getCheckedRadioButtonId()){
+                    case R.id.rbLeft:
+                        btnGravity = Gravity.LEFT;
+                        break;
+                    case R.id.rbCenter:
+                        btnGravity = Gravity.CENTER;
+                        break;
+                    case R.id.rbRight:
+                        btnGravity = Gravity.RIGHT;
+                        break;
+                }
+
+                lParms.gravity = btnGravity;
+
+                Button newButton = new Button(this);
+                newButton.setText(txtName.getText().toString());
+                lResult.addView(newButton,lParms);
                 break;
-            case R.id.btnColor:
-                menu.add(0,MENU_COLOR_BLUE,0,"BLUE");
-                menu.add(0,MENU_COLOR_RED,0,"RED");
-                menu.add(0,MENU_COLOR_GREEN,0,"GREEN");
+
+            case R.id.btnClear:
+                lResult.removeAllViews();
+                Toast.makeText(this, "Удалено", Toast.LENGTH_LONG).show();
                 break;
         }
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case MENU_FONT_16:
-                myText.setTextSize(16);
-                break;
-            case MENU_FONT_22:
-                myText.setTextSize(22);
-                break;
-            case MENU_FONT_28:
-                myText.setTextSize(28);
-                break;
 
-            case MENU_COLOR_BLUE:
-                myText.setTextColor(Color.BLUE);
-                break;
-            case MENU_COLOR_RED:
-                myText.setTextColor(Color.RED);
-                break;
-            case MENU_COLOR_GREEN:
-                myText.setTextColor(Color.GREEN);
-                break;
-        }
-        return super.onContextItemSelected(item);
-    }
+
 
 }
