@@ -9,7 +9,8 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="roganovich.firstapp.MainActivity"
-    tools:showIn="@layout/main">
+    tools:showIn="@layout/main"
+    android:padding="5dp">
 
 
 
@@ -52,30 +53,63 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
             android:id="@+id/txtName"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:selectAllOnFocus="false" />
+    </LinearLayout>
 
-        <Button
-            android:text="Create"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:text="Create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnCreate"
+                android:layout_weight="1"/>
+
+            <Button
+                android:text="Очистить"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnClear"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <SeekBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnCreate" />
-
-        <Button
-            android:text="Очистить"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnClear" />
+            android:id="@+id/sBar"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:max="100"
+            android:progress="50"/>
     </LinearLayout>
 
     <LinearLayout

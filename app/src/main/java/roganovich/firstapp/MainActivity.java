@@ -17,10 +17,13 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+
+    SeekBar sBar;
 
     TextView txtName;
     RadioButton rbLeft;
@@ -31,12 +34,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button btnClear;
     LinearLayout lResult;
 
+    LinearLayout.LayoutParams lParams1;
+    LinearLayout.LayoutParams lParams2;
+
     int wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        sBar = (SeekBar) findViewById(R.id.sBar);
+        sBar.setOnSeekBarChangeListener(this);
 
         txtName = (TextView) findViewById(R.id.txtName);
         rdbGroup = (RadioGroup) findViewById(R.id.rdbGroup);
@@ -48,6 +58,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnClear.setOnClickListener(this);
 
         lResult = (LinearLayout) findViewById(R.id.loResult);
+
+
+        lParams1 = (LinearLayout.LayoutParams) btnCreate.getLayoutParams();
+        lParams2 = (LinearLayout.LayoutParams) btnCreate.getLayoutParams();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +107,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        int rightProgress = progress;
+        int leftProgress = seekBar.getMax() - progress;
 
+        lParams1.weight = leftProgress;
+        lParams2.weight = rightProgress;
 
+        btnCreate.setText(String.valueOf(rightProgress));
+        btnClear.setText(String.valueOf(leftProgress));
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }
