@@ -11,6 +11,7 @@
     <string name="text1">Нажата кнопка №1</string>
     <string name="text2">Нажата кнопка №2</string>
     <string name="text3">Нажата кнопка №3</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 
 </resources>
